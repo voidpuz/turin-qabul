@@ -13,7 +13,7 @@ class Transaction(models.Model):
         CLICK = "CLICK", _("CLICK")
         PAYME = "PAYME", _("PAYME")
 
-    user = models.ForeignKey("users.User", on_delete=models.PROTECT, related_name="transactions")
+    user = models.ForeignKey("admission.Admission", on_delete=models.PROTECT, related_name="transactions")
     amount = models.DecimalField(_("Amount"), max_digits=10, decimal_places=2)
     status = models.CharField(_("Status"), max_length=32, choices=StatusType.choices, default=StatusType.PENDING)
     # tax_amount = models.DecimalField(_('TAX Amount'), max_digits=10, decimal_places=2, default=0.0, null=True,
