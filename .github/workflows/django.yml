@@ -38,7 +38,7 @@ jobs:
 
     # Step 5: Set up Database (PostgreSQL example)
     - name: Set up PostgreSQL
-      uses: ikalnytskyi/action-postgres@v7
+      uses: ikalnytskyi/action-setup-postgres@v7
       with:
         username: test_user
         password: test_password
