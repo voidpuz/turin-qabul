@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # 'payments',
     # 'click',
     "admission",
+    "payment",
 ]
 
 MIDDLEWARE = [
