@@ -34,7 +34,9 @@ jobs:
 
     # Step 4: Run Pre-commit Hooks (flake8, etc.)
     - name: Run Pre-commit Hooks
-      run: pre-commit run --all-files
+      run: |
+        cd turin_qabul
+        pre-commit run --all-files
 
     # Step 5: Set up Database (PostgreSQL example)
     - name: Set up PostgreSQL
