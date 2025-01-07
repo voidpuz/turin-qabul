@@ -37,13 +37,14 @@ jobs:
       run: pre-commit run --all-files
 
     # Step 5: Set up Database (PostgreSQL example)
-    - name: Set up Database
-      uses: Harmon758/postgresql-action@v2
+    - name: Set up PostgreSQL
+      uses: ikalnytskyi/action-postgres@v7
       with:
-        postgresql version: "16"  # Set your desired PostgreSQL version
-        postgresql db: "test_db"  # Create a test database
-        postgresql user: "test_user"
-        postgresql password: "test_password"
+        username: test_user
+        password: test_password
+        database: test_db
+        version: "16"
+        
     - name: Set Database URL for Django
       run: |
         echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
