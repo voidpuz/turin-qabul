@@ -1,4 +1,8 @@
+import base64
+
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -36,3 +40,40 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.payment_type} | {self.id}"
+
+    def success_process(self):
+        self.status = self.StatusType.ACCEPTED
+        self.paid_at = timezone.now()
+        self.save(update_fields=["status", "paid_at"])
+
+        self.user.update_balance()
+
+    def cancel_process(self):
+        self.status = self.StatusType.CANCELED
+        self.canceled_at = timezone.now()
+        self.save(update_fields=["status", "canceled_at"])
+
+        self.user.update_balance()
+
+    @property
+    def payment_url(self):
+        payment_url = ""
+        if self.payment_type == Transaction.PaymentType.PAYME:
+            merchant_id = settings.PAYMENT_CREDENTIALS["payme"]["merchant_id"]
+            params = f"m={merchant_id};ac.order_id={self.id};a={self.amount * 100};"
+            encode_params = base64.b64encode(params.encode("utf-8"))
+            encode_params = str(encode_params, "utf-8")
+            payment_url = f"{settings.PAYMENT_CREDENTIALS['payme']['callback_url']}/{encode_params}"
+
+        elif self.payment_type == Transaction.PaymentType.CLICK:
+            merchant_id = settings.PAYMENT_CREDENTIALS["click"]["merchant_id"]
+            service_id = settings.PAYMENT_CREDENTIALS["click"]["merchant_service_id"]
+            return_url = self.click_inapp_generate_payment_url()
+            params = (
+                f"?service_id={service_id}&merchant_id={merchant_id}&"
+                f"amount={self.amount}&transaction_param={self.id}&"
+                f"return_url={return_url}"
+            )
+            payment_url = f"{settings.PAYMENT_CREDENTIALS['click']['callback_url']}/{params}"
+
+        return payment_url

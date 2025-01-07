@@ -3,4 +3,5 @@ from payment.payment_types.click.Prepare.views import ClickPrepareAPIView
 
 urlpatterns = [
     path("click/prepare/", ClickPrepareAPIView.as_view(), name="click_prepare"),
+    path("click/complete/", ClickPrepareAPIView.as_view(), name="click_complete"),
 ]
