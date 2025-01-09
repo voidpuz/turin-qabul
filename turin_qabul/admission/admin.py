@@ -19,3 +19,9 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
     pass
+
+
+# @admin.register(Service)
+# class ServiceAdmin(admin.ModelAdmin):
+#     list_display = ("id", "name", "amount")
+#     list_display_links = ("id", "name",)
