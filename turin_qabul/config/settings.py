@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     "drf_spectacular",
     # 'payments',
     # 'click',
+    "click_up",
     "admission",
+    "pay",
 ]
 
 MIDDLEWARE = [
@@ -167,3 +169,12 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
+
+
+# CLICK settings
+
+CLICK_SERVICE_ID = os.getenv("CLICK_SERVICE_ID")
+CLICK_MERCHANT_ID = os.getenv("CLICK_MERCHANT_ID")
+CLICK_SECRET_KEY = os.getenv("CLICK_SECRET_KEY")
+CLICK_ACCOUNT_MODEL = "admission.models.Admission"  # your order model path.
+CLICK_AMOUNT_FIELD = 1000  # your amount field that's belongs to your order model
