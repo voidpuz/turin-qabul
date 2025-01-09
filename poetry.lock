@@ -160,6 +160,20 @@ files = [
 ]
 
 [[package]]
+name = "click-pkg"
+version = "0.9"
+description = ""
+optional = false
+python-versions = "*"
+files = [
+    {file = "click_pkg-0.9.tar.gz", hash = "sha256:5a7ce816dee16537b920e707a26d4ffac029539aa3fc1835800fd169509cb502"},
+]
+
+[package.dependencies]
+djangorestframework = "==3.*"
+requests = "==2.*"
+
+[[package]]
 name = "distlib"
 version = "0.3.9"
 description = "Distribution utilities"
@@ -940,4 +954,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5fb66896637b2b74b5bf356edd059a296f38a7065dfcdbf9a3998eeb470d6bab"
+content-hash = "d266bb732aae5765548dfa0c37c911fccf1d1fcce2cbbb8547af05bf1e0b47d2"
